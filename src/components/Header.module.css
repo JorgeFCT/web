@@ -1,0 +1,41 @@
+@font-face {
+    font-family: "Avenir Next LT Pro Bold";
+    src: url("/src/assets/fonts/AvenirNextLTPro-Bold.otf") format("opentype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat-bold';
+    src: url('/src/assets/fonts/Montserrat/Montserrat-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/src/assets/fonts/Montserrat/Montserrat-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-semiBold';
+    src: url('/src/assets/fonts/Montserrat/Montserrat-SemiBold.ttf') format('truetype');
+}
+
+span{
+    font-family: "Avenir Next LT Pro Bold";
+    color: #804517;
+}
+
+.navbar{
+    font-size: 18pt;
+}
+
+.logo-cs{
+    margin-top: 5rem !important;
+}
+
+.nav-link{
+    padding: 0;
+}
+li{
+    border: 1pt;
+}
