@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css'; 
 
+
 export const Header = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -12,7 +13,7 @@ export const Header = () => {
                     {/* Logo y título */}
                     <Link to="/comercios" className={`flex items-center ${styles.navLink}`}>
                         <img
-                            src="src/assets/img/mapamask-logo.png"
+                            src= "/assets/img/mapamask-logo.png"
                             alt="Logo Mapamask"
                             width="60"
                             className={`inline-block mr-2 ${styles.logoCs}`}

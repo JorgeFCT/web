@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { MainLayout } from '../../layout';
+import Select from 'react-select';
 
 const symbolToId: Record<string, string> = {
   BTC: 'bitcoin',
@@ -31,6 +32,35 @@ export const Calculadora = () => {
   const [resultCrypto, setResultCrypto] = useState('');
   const [exchangeRates, setExchangeRates] = useState<Record<string, Record<string, number>>>({});
   const [loading, setLoading] = useState(true);
+
+  const fiatOptions= [
+    {label: "EUR", value: "EUR"},
+    {label: "USD", value: "USD"},
+  ];
+
+  const cryptoOptions = [
+    { label: "BTC", value: "BTC" },
+    { label: "BNB", value: "BNB" },
+    { label: "ETH", value: "ETH" },
+    { label: "MATIC", value: "MATIC" },
+    { label: "AVAX", value: "AVAX" },
+    { label: "NEAR", value: "NEAR" },
+    { label: "ROSE", value: "ROSE" },
+    { label: "IOTA", value: "IOTA" },
+    { label: "DOGE", value: "DOGE" },
+    { label: "SHIB", value: "SHIB" },
+    { label: "SOL", value: "SOL" },
+    { label: "ADA", value: "ADA" },
+    { label: "LUNA", value: "LUNA" },
+    { label: "XRP", value: "XRP" },
+    { label: "DOT", value: "DOT" },
+    { label: "USDT", value: "USDT" },
+    { label: "DAI", value: "DAI" },
+    { label: "BUSD", value: "BUSD" },
+    { label: "USDC", value: "USDC" },
+  ];
+
+
 
   useEffect(() => {
     const ids = Object.values(symbolToId).join(',');
@@ -76,16 +106,35 @@ export const Calculadora = () => {
 
       <div className="calculadora mt-5">
         <div className="flex justify-center mb-3">
-          <div className="w-1/4 sm:w-1/4 px-2">
-            <select
-              className="w-full rounded-lg p-2 bg-white text-[#804617] cursor-pointer border border-[#804617] focus:outline-none"
-              value={fiat}
-              onChange={(e) => setFiat(e.target.value)}
-            >
-              <option value="EUR">EUR</option>
-              <option value="USD">USD</option>
-            </select>
-          </div>
+        <div className="w-2/6 sm:w-1/4 px-2">
+
+  <Select
+    options={fiatOptions}
+    defaultValue={fiatOptions.find((opt) => opt.value === fiat)}
+    onChange={(selected) => setFiat(selected?.value || "EUR")}
+    className="text-[#804617] text-xs"
+    styles={{
+      control: (base) => ({
+        ...base,
+        borderColor: "#804617",
+        borderRadius: "0.5rem",
+        padding: "0.25rem",
+        minHeight: "2.5rem",
+        fontSize: "1rem", // text-xs
+        color: "#804617",
+        height:47
+      }),
+      option: (base, state) => ({
+        ...base,
+        fontSize: "1rem",
+        backgroundColor: state.isFocused ? "#f3f4f6" : "white",
+        color: "#804617",
+        cursor: "pointer",
+      }),
+    }}
+  />
+</div>
+
           <div className="w-[40%] px-2">
             <input
               type="text"
@@ -104,36 +153,36 @@ export const Calculadora = () => {
         </div>
 
         <div className="flex justify-center mt-3">
-          <div className="w-1/4 sm:w-1/4 px-2">
-            <select
-              className="w-full rounded-lg p-2 bg-white text-[#804617] cursor-pointer border border-[#804617] focus:outline-none"
-              value={crypto}
-              onChange={(e) => setCrypto(e.target.value)}
-            >
-              <option value="BTC">BTC</option>
-              <optgroup label="Alt coins">
-                <option value="BNB">BNB</option>
-                <option value="ETH">ETH</option>
-                <option value="MATIC">MATIC</option>
-                <option value="AVAX">AVAX</option>
-                <option value="NEAR">NEAR</option>
-                <option value="ROSE">ROSE</option>
-                <option value="IOTA">IOTA</option>
-                <option value="DOGE">DOGE</option>
-                <option value="SHIB">SHIB</option>
-                <option value="SOL">SOL</option>
-                <option value="ADA">ADA</option>
-                <option value="LUNA">LUNA</option>
-                <option value="XRP">XRP</option>
-                <option value="DOT">DOT</option>
-              </optgroup>
-              <optgroup label="Stable coins">
-                <option value="USDT">USDT</option>
-                <option value="DAI">DAI</option>
-                <option value="BUSD">BUSD</option>
-                <option value="USDC">USDC</option>
-              </optgroup>
-            </select>
+        <div className="w-2/6 sm:w-1/4 px-2">
+
+    <Select
+    options={cryptoOptions}
+    defaultValue={cryptoOptions.find((opt) => opt.value === crypto)}
+    onChange={(selected) => setCrypto(selected?.value || "BTC")}
+    className="text-[#804617] text-xs"
+    styles={{
+      control: (base) => ({
+        ...base,
+        borderColor: "#804617",
+        borderRadius: "0.5rem",
+        padding: "2px",
+        minHeight: "2.5rem",
+        fontSize: "1rem", // text-xs
+        height:47
+      }),
+      option: (base, state) => ({
+        ...base,
+        fontSize: "1rem", // text-xs
+        color: "#804617",
+        backgroundColor: state.isFocused ? "#f5f5f5" : "white",
+        cursor: "pointer",
+      }),
+      menu: (base) => ({
+        ...base,
+        zIndex: 50,
+      }),
+    }}
+  />
           </div>
           <div className="w-[40%] px-2">
             <input
@@ -147,14 +196,14 @@ export const Calculadora = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center mt-5 crypto-logos">
+      <div className="flex flex-wrap pt-19 justify-center mt-5 crypto-logos">
         {[
           'btc', 'bnb', 'matic', 'eth', 'iota', 'usdt', 'dai', 'busd'
         ].map((name) => (
-          <div key={name} className="w-1/6 sm:w-1/15 p-2">
+          <div key={name} className="w-1/5 sm:w-1/15 p-2">
             <img
               className="logo-crypto"
-              src={`src/assets/img/${name}-logo.png`}
+              src={`/assets/img/${name}-logo.png`}
               alt={`${name.toUpperCase()} Logo`}
             />
           </div>
