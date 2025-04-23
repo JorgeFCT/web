@@ -1,185 +1,161 @@
-import BrownButton from "../../components/BrownButton";
-import TextInput from "../../components/TextInput";
+import { useState } from "react";
+import { MainLayout } from "../../layout";
 
-const BusinessForm = () => {
-    return (
-        <div className="bg-gray-100 min-h-screen p-4">
-            <div className="container mx-auto">
-                <div className="mt-10 text-center">
-                    <h3 className="text-2xl">Rellena el siguiente formulario</h3>
-                </div>
-
-                <div className="mt-10 text-center text-white">
-                    <h4 className="font-montserrat text-lg mt-3">Conecta tu Metamask para estar verificado y poder editar tu ficha</h4>
-
-                    <div className="mt-3">
-                        <BrownButton
-                            text="Conectar cartera"
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <div className="container mx-auto mt-10 bg-white p-6 rounded shadow-lg">
-                <div className="mb-4 text-center">
-                    <TextInput
-                        placeholder="businessname*"
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
-                        type="text"
-                        placeholder="email*"
-                        className="w-full p-2 border rounded"
-                    />
-                    <input
-                        type="text"
-                        placeholder="telephone"
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <button className="border w-full py-2 rounded">
-                        [Sector Placeholder]
-                    </button>
-                    <input
-                        type="text"
-                        placeholder="speciality"
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <select className="w-full p-2 border rounded">
-                        <option>Country 1</option>
-                        <option>Country 2</option>
-                    </select>
-                    <input
-                        type="text"
-                        placeholder="city*"
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <input
-                        type="text"
-                        placeholder="website"
-                        className="w-full p-2 border rounded"
-                    />
-                    <button className="border w-full py-2 rounded">
-                        [Discount Placeholder]
-                    </button>
-                </div>
-
-                <div className="mt-4">
-                    <textarea
-                        placeholder="writekeywords"
-                        className="w-full p-2 border rounded"
-                    />
-                </div>
-
-                <div className="mt-4 text-center">
-                    <input
-                        type="file"
-                        id="img"
-                        className="hidden"
-                        accept="image/png,image/jpg,image/jpeg"
-                    />
-                    <label
-                        htmlFor="img"
-                        className="border-2 border-black py-2 px-6 rounded cursor-pointer bg-white"
-                    >
-                        selectfile
-                    </label>
-                </div>
-
-                <div className="mt-2 text-center">
-                    <p>[imageselected]</p>
-                </div>
-            </div>
-
-            <div className="text-center mt-6">
-                <h6>*pinmap</h6>
-            </div>
-
-            <div className="container mx-auto mt-6 bg-white p-6 rounded shadow-lg">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <input
-                        type="text"
-                        placeholder="street"
-                        className="w-full p-2 border rounded"
-                    />
-                    <input
-                        type="text"
-                        placeholder="number"
-                        className="w-full p-2 border rounded"
-                    />
-                    <input
-                        type="text"
-                        placeholder="postcode"
-                        className="w-full p-2 border rounded"
-                    />
-                    <BrownButton
-                        text="Search"
-                        className={`border w-full py-2 rounded`}
-                    />
-                </div>
-            </div>
-
-            <div className="center mt-6">
-                <div id="map" className="w-full h-64 bg-gray-300 rounded shadow" />
-            </div>
-
-            <div className="text-center mt-4">
-                <h5 className="text-red-600">[status]</h5>
-            </div>
-
-            <div className="text-center mt-4">
-                <button className="py-2 px-4 rounded">
-                    send
-                </button>
-            </div>
-
-            {/* Modal: Set Discount */}
-            <div className="modal">
-                <div className="modal-content p-6 bg-white rounded shadow-lg">
-                    <h5 className="text-lg font-semibold text-center text-orange-500 mb-2">
-                        adddiscount
-                    </h5>
-                    <p className="mb-4">adddiscountdesc</p>
-
-                    <div className="grid grid-cols-3 gap-4">
-                        {[5, 10, 15].map((value) => (
-                            <label
-                                key={value}
-                                className="flex items-center justify-center border rounded p-4 cursor-pointer"
-                            >
-                                <input
-                                    type="radio"
-                                    name="discount"
-                                    value={value}
-                                    className="hidden"
-                                />
-                                <span>{value}%</span>
-                            </label>
-                        ))}
-                    </div>
-
-                    <div className="mt-4">
-                        <input
-                            type="text"
-                            placeholder="custom discount"
-                            className="w-full p-2 border rounded"
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+type BusinessData = {
+  name: string;
+  description: string;
+  sector: string;
+  latitude: string;
+  longitude: string;
 };
 
-export default BusinessForm;
+const Register = () => {
+  const [formData, setFormData] = useState<BusinessData>({
+    name: "",
+    description: "",
+    sector: "",
+    latitude: "",
+    longitude: "",
+  });
+
+  const [statusMessage, setStatusMessage] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const businessToSend = {
+      name: formData.name,
+      description: formData.description,
+      sectors: [formData.sector],
+      latitude: parseFloat(formData.latitude),
+      longitude: parseFloat(formData.longitude),
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/api/business/addBusiness", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(businessToSend),
+      });
+
+      if (!response.ok) throw new Error("Error al registrar el negocio");
+
+      setStatusMessage("Negocio registrado con éxito");
+      setFormData({
+        name: "",
+        description: "",
+        sector: "",
+        latitude: "",
+        longitude: "",
+      });
+    } catch (err) {
+      console.error(err);
+      setStatusMessage("Error al registrar el negocio");
+    }
+  };
+
+  return (
+    <MainLayout>
+      <div className="flex justify-center mt-6">
+        <img
+          src="src/assets/img/mapamask-logo.png"
+          alt="Logo"
+          className="w-24 h-24 object-contain mb-4"
+        />
+      </div>
+
+      <div className="flex justify-center mb-6">
+        <h2 className="text-2xl font-bold text-[#804617]">Registrar Negocio</h2>
+      </div>
+
+      <form
+        onSubmit={handleSubmit}
+        className="w-105 mx-auto bg-white p-6 space-x-1 rounded-lg shadow border border-[#804617]"
+      >
+        <div className="mb-4">
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Nombre del negocio"
+            className="w-full p-3 border border-[#804617] rounded-lg bg-white text-[#804617] focus:outline-none"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Descripción breve"
+            rows={3}
+            className="w-full p-3 border border-[#804617] rounded-lg bg-white text-[#804617] focus:outline-none"
+            required
+          ></textarea>
+        </div>
+
+        <div className="mb-4">
+          <select
+            name="sector"
+            value={formData.sector}
+            onChange={handleChange}
+            className="w-full p-3 border border-[#804617] rounded-lg bg-white text-[#804617] focus:outline-none"
+            required
+          >
+            <option value="">Selecciona un sector</option>
+            <option value="fashionaccesories">Accesorios de moda</option>
+            <option value="professional">Profesional</option>
+            <option value="businessretail">Minoristas</option>
+            <option value="health">Salud</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <input
+            type="text"
+            name="latitude"
+            value={formData.latitude}
+            onChange={handleChange}
+            placeholder="Latitud"
+            className="w-full p-3 border border-[#804617] rounded-lg bg-white text-[#804617] focus:outline-none"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <input
+            type="text"
+            name="longitude"
+            value={formData.longitude}
+            onChange={handleChange}
+            placeholder="Longitud"
+            className="w-full p-3 border border-[#804617] rounded-lg bg-white text-[#804617] focus:outline-none"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-[#804617] hover:bg-[#a65c2a] text-white font-bold py-3 rounded-lg transition duration-200"
+        >
+          Registrar
+        </button>
+
+        {statusMessage && (
+          <p className="text-center mt-4 text-[#804617] font-semibold">
+            {statusMessage}
+          </p>
+        )}
+      </form>
+    </MainLayout>
+  );
+};
+
+export default Register;

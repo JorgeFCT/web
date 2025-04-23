@@ -9,8 +9,6 @@ const BrownButton: React.FC<BrownButtonProps> = ({ text, onClick, className }) =
     const buttonStyles = {
         backgroundColor: '#804517',
         fontWeight: 'bold',
-        height: '100%',
-        padding: '8px 16px',
         color: 'white',
         border: 'none',
         transition: 'background-color 0.3s',
@@ -25,7 +23,7 @@ const BrownButton: React.FC<BrownButtonProps> = ({ text, onClick, className }) =
     return (
         <button
             onClick={onClick}
-            className={`text-white p-2 rounded-md ${className}`}
+            className={className}
             style={buttonStyles}
             onMouseOver={(e) => (e.currentTarget.style.backgroundColor = buttonHoverStyles.backgroundColor)}
             onMouseOut={(e) => (e.currentTarget.style.backgroundColor = buttonStyles.backgroundColor)}

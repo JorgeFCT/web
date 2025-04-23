@@ -1,19 +1,16 @@
-import React from "react"; 
+import React from "react";
 
 interface TextInputProps {
     placeholder: string,
-    className?: string
+    className?: string,
+    value?: string,
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-const TextInput: React.FC<TextInputProps> = ({placeholder, className}) => {
+const TextInput: React.FC<TextInputProps> = ({ placeholder, className, value, onChange }) => {
 
     const inputStyles = {
-        backgroundColor: '#fff',
-        borderColor: '#000000',
-        borderWidth: '1px',
-        padding: '8px 12px',
-        width: '100%',
-        height: '40px',
+        borderWidth: '0px',
         fontSize: '1rem',
         fontWeight: '400',
         transition: 'border-color 0.3s',
@@ -23,9 +20,12 @@ const TextInput: React.FC<TextInputProps> = ({placeholder, className}) => {
         <input
             type="text"
             placeholder={placeholder}
-            className={`${className} w-full p-2 border rounded`}
+            value={value}
+            onChange={onChange}
+            className={className}
             style={inputStyles}
         />
+
     )
 }
 

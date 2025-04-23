@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import cryptoSpaceLogo from '../assets/img/CryptoSpace-logo.png'
 
 const Footer = () => {
 return (
@@ -7,7 +8,7 @@ return (
             <Link to="https://www.cryptospace.es/" target="_blank" rel="noopener noreferrer">
             <p className="flex items-center">
                 Powered by
-                <img src="src/assets/img/CryptoSpace-logo.png" alt="CryptoSpace Logo" width="50px" className="ml-2" />
+                <img src={cryptoSpaceLogo} alt="CryptoSpace Logo" width="50px" className="ml-2" />
             </p>
             </Link>
         </div>

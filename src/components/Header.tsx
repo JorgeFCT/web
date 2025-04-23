@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css'; 
-
+import mapamasklogo from '../assets/img/mapamask-logo.png'
 
 export const Header = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,7 +13,7 @@ export const Header = () => {
                     {/* Logo y título */}
                     <Link to="/comercios" className={`flex items-center ${styles.navLink}`}>
                         <img
-                            src= "/assets/img/mapamask-logo.png"
+                            src= {mapamasklogo}
                             alt="Logo Mapamask"
                             width="60"
                             className={`inline-block mr-2 ${styles.logoCs}`}
@@ -44,9 +44,10 @@ export const Header = () => {
 
                     {/* Menú normal en escritorio */}
                     <div className="hidden md:flex space-x-6 ">
-                        <ul className="flex items-center space-x-6 font-montserrat">
-                            <li><Link to="/calculadora">Calculadora</Link></li>
-                            <li><Link to="/registro">Registro</Link></li>
+                    <ul className="flex flex-row items-start space-y-4 space-x-3 font-montserrat">
+                            
+                            <li className="border border-[#804617] rounded-full px-4 py-1 hover:bg-[#f5f0eb] transition"><Link to="/registro">Registro</Link></li>
+                            <li className="border border-[#804617] rounded-full px-4 py-1 hover:bg-[#f5f0eb] transition"><Link to="/faqPage">FaQ</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -54,9 +55,10 @@ export const Header = () => {
                 {/* Menú desplegable en móvil */}
                 {isMobileMenuOpen && (
                     <div className="md:hidden mt-4 border border-[#804617] rounded-lg p-2">
-                        <ul className="flex flex-col items-start space-y-2 font-montserrat">
-                            <li className="border border-[#804617] rounded-full px-4 py-1 hover:bg-[#f5f0eb] transition"><Link to="/calculadora">Calculadora</Link></li>
+                        <ul className="flex flex-grid items-start space-x-3 font-montserrat">
+                            
                             <li className="border border-[#804617] rounded-full px-4 py-1 hover:bg-[#f5f0eb] transition"><Link to="/registro">Registro</Link></li>
+                            <li className="border border-[#804617] rounded-full px-4 py-1 hover:bg-[#f5f0eb] transition"><Link to="/faqPage">FaQ</Link></li>
                         </ul>
                     </div>
                 )}
